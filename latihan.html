@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soal Isian</title>
+    <script>
+        function cekJawaban() {
+            const jawabanBenar = "JavaScript";
+            const jawabanUser = document.getElementById("jawaban").value;
+
+            if (jawabanUser === jawabanBenar) {
+                alert("Jawaban Anda benar!");
+            } else {
+                alert("Jawaban Anda salah. Coba lagi.");
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <h2>Soal: Lengkapi kalimat berikut</h2>
+    <p>Bahasa pemrograman yang digunakan untuk membuat interaktivitas pada halaman web adalah ________.</p>
+
+    <input type="text" id="jawaban" placeholder="Isi jawaban di sini">
+    <button onclick="cekJawaban()">Cek Jawaban</button>
+
+</body>
+</html>

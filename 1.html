@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docs-Like Bootstrap Template</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Layout Styling */
+        body {
+            padding-top: 56px;
+        }
+        .sidebar {
+            position: fixed;
+            top: 56px;
+            bottom: 0;
+            left: 0;
+            z-index: 1000;
+            padding: 48px 0 0;
+            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+            background-color: #e9eef4;
+        }
+        .main-content {
+            padding: 20px;
+        }
+        @media (min-width: 992px) {
+            .main-content {
+                margin-left: 250px;
+            }
+        }
+        .sidebar-nav {
+            padding-left: 0;
+        }
+        .sidebar-nav li {
+            padding: 0.5rem 1rem;
+        }
+        .sidebar-nav li a {
+            text-decoration: none;
+        }
+        .active {
+            font-weight: bold;
+        }
+        /* Mobile view sidebar */
+        @media (max-width: 991px) {
+            .sidebar {
+                display: none;
+            }
+            .sidebar.show {
+                display: block;
+                position: fixed;
+                width: 100%;
+                z-index: 9999;
+                top: 56px;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary-subtle fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><b><span class="text-bg-warning h2 ">CodeMentorCPP</span></b></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" onclick="loadPage('home.html')">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="loadPage('docs.html')">Docs</a>
+                    </li>
+                </ul>
+                <button class="btn btn-outline-primary d-lg-none" id="toggleSidebar">Toggle Sidebar</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div class="sidebar col-md-3 col-lg-2" id="sidebar">
+        <ul class="nav flex-column sidebar-nav">
+            <li class="nav-item">
+                <a class="nav-link active" href="#" onclick="loadPage('home.html')">Overview</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" onclick="loadPage('docs.html')">Getting Started</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" onclick="loadPage('components.html')">Components</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content container-fluid">
+        <div id="main-content" class="col-lg-9">
+            <h1>Welcome</h1>
+            <p>Select a page from the sidebar or navbar to load content dynamically.</p>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (required for interactive components) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- AJAX Load Content Script -->
+    <script>
+        function loadPage(url) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    document.getElementById('main-content').innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send();
+        }
+
+        // Toggle Sidebar for Mobile
+        document.getElementById("toggleSidebar").addEventListener("click", function () {
+            var sidebar = document.getElementById("sidebar");
+            sidebar.classList.toggle("show");
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+
+        body {
+            --sb-track-color: #232E33;
+            --sb-thumb-color: #6BAF8D;
+            --sb-size: 14px;
+        }
+
+        /* WebKit Scrollbar Customization */
+        body::-webkit-scrollbar {
+            width: var(--sb-size);
+        }
+
+        body::-webkit-scrollbar-track {
+            background: var(--sb-track-color);
+            border-radius: 3px;
+        }
+
+        body::-webkit-scrollbar-thumb {
+            background: var(--sb-thumb-color);
+            border-radius: 3px;
+        }
+
+        /* Firefox scrollbar support */
+        @supports not selector(::-webkit-scrollbar) {
+            body {
+                scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+                scrollbar-width: thin;
+            }
+        }
+
+        /* Additional styling */
+        body {
+            padding-top: 56px; /* Space for fixed navbar */
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 56px;
+            bottom: 0;
+            left: 0;
+            z-index: 1000;
+            padding: 48px 0 0; /* Space for navbar */
+            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+            overflow-y: auto; /* Ensure scroll functionality */
+            background-color: #f8f9fa;
+        }
+
+        .main-content {
+            padding: 20px;
+        }
+
+        /* Sidebar for larger screens */
+        @media (min-width: 992px) {
+            .main-content {
+                margin-left: 250px; /* Adjust based on sidebar width */
+            }
+        }
+
+        /* Sidebar hidden on small screens */
+        @media (max-width: 991px) {
+            .sidebar {
+                display: none;
+            }
+
+            /* Main content full width when sidebar hidden */
+            .main-content {
+                margin-left: 0;
+            }
+        }
+
+        /* Show sidebar when toggled on small screens */
+        .sidebar.show {
+            display: block;
+            position: fixed;
+            width: 100%;
+        }
