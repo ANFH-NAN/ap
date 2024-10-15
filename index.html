@@ -3,46 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page Title</title>
+    <title>Gamer Sidebar</title>
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Layout Styling */
+        h2 {
+            font-family: 'Roboto', sans-serif;
+        }
+        body {
+            padding-top: 56px;
+        }
+        .sidebar {
+            position: fixed;
+            top: 56px;
+            bottom: 0;
+            left: 0;
+            z-index: 1000;
+            padding: 48px 0 0;
+            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+            background-color: #0565c6; /* Background color for the sidebar */
+            color: white; /* Text color */
+            overflow-y: auto; /* Enable scrolling */
+        }
+        .main-content {
+            padding: 25px;
+            overflow-x: hidden;
+        }
+        @media (min-width: 800px) {
+            .main-content {
+                margin-left: 250px;
+            }
+        }
+        .sidebar-nav {
+            padding-left: 0;
+        }
+        .sidebar-nav li {
+            padding: 10px 15px; /* Padding for items */
+        }
+        .sidebar-nav li a {
+            text-decoration: none;
+            color: white; /* Color for links */
+        }
+        .sidebar-nav li a:hover {
+            background-color: #b1d2f0; /* Hover effect */
+            border-radius: 5px; /* Rounded corners on hover */
+        }
+        .active {
+            font-weight: bold;
+            background-color: #0872eb; /* Active link background */
+            border-radius: 5px; /* Rounded corners */
+        }
+        /* Mobile view sidebar */
+        @media (max-width: 991px) {
+            .sidebar {
+                display: none;
+            }
+            .sidebar.show {
+                display: block;
+                position: fixed;
+                width: 60%;
+                max-width: 250px;
+                z-index: 9999;
+                top: 56px;
+                background-color: #1d1f21; /* Background color for mobile */
+            }
+            .overlay {
+                display: none;
+            }
+            .overlay.show {
+                display: block;
+                position: fixed;
+                top: 56px;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 9998;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Placeholder untuk Navbar dan Sidebar -->
-    <div id="navbar"></div>
-    <div id="sidebar"></div>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary-subtle fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><b><span class="bg-primary text-white h2">CodeMentorCPP</span></b></a>
+            <button id="toggleSidebar" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav"></div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div class="sidebar col-md-3 col-lg-2" id="sidebar">
+        <ul class="nav flex-column sidebar-nav">
+            <li class="nav-item">
+                <a class="nav-link active" href="#" onclick="loadPage('percabangan.html')">Percabangan</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" onclick="loadPage('docs.html')">If</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" onclick="loadPage('components.html')">if else</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" onclick="loadPage('components.html')">Nested If</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" onclick="loadPage('components.html')">Switch case</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
 
     <!-- Main Content -->
     <div class="main-content">
-        <h1>Content Title</h1>
-        <p>This is where your content goes.</p>
+        <div id="main-content" class="col-lg-10 col-md-9">
+            <h1>Welcome</h1>
+            <p>Select a page from the sidebar or navbar to load content dynamically.</p>
+        </div>
     </div>
 
-    <!-- Bootstrap JS -->
+    <!-- Bootstrap JS (required for interactive components) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    
-   <!-- Script untuk memuat navbar dan sidebar -->
-   <script>
-    // Fungsi untuk memuat file HTML eksternal dan menambahkan event listener
-    function loadHTML(elementId, file, callback) {
-        fetch(file)
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById(elementId).innerHTML = data;
-                if (callback) callback();  // Panggil callback setelah HTML dimuat
-            });
-    }
 
-    // Memuat navbar dan sidebar
-    loadHTML("navbar", "navbar.html", function () {
-        // Tambahkan event listener untuk tombol toggleSidebar setelah navbar dimuat
+    <!-- AJAX Load Content Script -->
+    <script>
+        function loadPage(url) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    document.getElementById('main-content').innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send();
+        }
+
+        // Toggle Sidebar for Mobile
         document.getElementById("toggleSidebar").addEventListener("click", function () {
             var sidebar = document.getElementById("sidebar");
+            var overlay = document.getElementById("overlay");
             sidebar.classList.toggle("show");
+            overlay.classList.toggle("show");
         });
-    });
 
-    loadHTML("sidebar", "sidebar.html");
-</script>
+        // Close sidebar if overlay is clicked
+        document.getElementById("overlay").addEventListener("click", function () {
+            var sidebar = document.getElementById("sidebar");
+            var overlay = document.getElementById("overlay");
+            sidebar.classList.remove("show");
+            overlay.classList.remove("show");
+        });
+
+        // Automatically close sidebar and navbar when a menu item is clicked
+        var menuLinks = document.querySelectorAll('.sidebar-nav a');
+        menuLinks.forEach(function(link) {
+            link.addEventListener('click', function () {
+                var sidebar = document.getElementById("sidebar");
+                var overlay = document.getElementById("overlay");
+                sidebar.classList.remove("show");
+                overlay.classList.remove("show");
+
+                // Collapse the navbar if it's expanded
+                var navbarCollapse = document.getElementById("navbarNav");
+                if (navbarCollapse.classList.contains("show")) {
+                    var bsCollapse = new bootstrap.Collapse(navbarCollapse);
+                    bsCollapse.hide();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
