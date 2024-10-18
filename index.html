@@ -40,7 +40,7 @@
             z-index: 1000;
             padding: 48px 0 0;
             box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
-            background-color: #0565c6; /* Background color for the sidebar */
+            background-color: #000000; /* Background color for the sidebar */
             color: white; /* Text color */
             overflow-y: auto; /* Enable scrolling */
         }
@@ -109,7 +109,13 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-primary-subtle fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"><b><span class="bg-primary text-white h2">CodeMentorCPP</span></b></a>
+            <a class="navbar-brand" href="#">
+                <img src="logo.png" alt="Logo" style="height: 50px;">
+                <b><span class="bg-primary text-white h2">CodeMentorCPP</span>
+                    <img src="logo.png" alt="Logo" style="height: 50px;">
+                </b>
+            </a>
+            
             <button id="toggleSidebar" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -133,7 +139,7 @@
                 <a class="nav-link" href="#" onclick="loadPage('if-majemuk.html')">Nested If</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" onclick="loadPage('components.html')">Switch case</a>
+                <a class="nav-link" href="#" onclick="loadPage('switch.html')">Switch case</a>
             </li>
         </ul>
     </div>
