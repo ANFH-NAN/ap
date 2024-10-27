@@ -1,0 +1,29 @@
+
+    <div id="controls">
+        <label for="height">Masukkan tinggi segitiga: </label>
+        <input type="number" id="height" min="1" max="10" value="5">
+        <button onclick="startAnimation()">Mulai Animasi</button>
+    </div>
+
+    <div id="output"></div>
+
+    <div id="code">
+        <code id="codeDisplay">
+<span id="line1">#include &lt;iostream&gt;</span>
+<span id="line2">using namespace std;</span>
+
+<span id="line3">int main() {</span>
+<span id="line4">    int i, j, tinggi;</span>
+<span id="line5">    cout &lt;&lt; "Masukkan tinggi segitiga: ";</span>
+<span id="line6">    cin &gt;&gt; tinggi;</span>
+<span id="line7"></span>
+<span id="line8">    for (i = 1; i &lt;= tinggi; i++) {</span>
+<span id="line9">        for (j = 1; j &lt;= i; j++) {</span>
+<span id="line10">            cout &lt;&lt; "*";</span>
+<span id="line11">        }</span>
+<span id="line12">        cout &lt;&lt; endl; </span>
+<span id="line13">    }</span>
+<span id="line14">    return 0;</span>
+<span id="line15">}</span>
+        </code>
+    </div>

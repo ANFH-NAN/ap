@@ -103,33 +103,6 @@
                 margin-left: 0;
             }
         }
-
-        #output {
-            font-size: 24px;
-            line-height: 1.5;
-            white-space: pre;
-            margin-top: 20px;
-        }
-        
-        .highlight {
-            background-color: #d4edda;
-        }
-        #controls {
-            margin-top: 20px;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        #code {
-            font-family: monospace;
-            background-color: #f4f4f4;
-            padding: 2px;
-            border: 1px solid #ddd;
-            margin-top: 20px;
-            white-space: pre;
-        }
     </style>
 </head>
 <body>
@@ -251,44 +224,6 @@
                 }
             });
         });
-    </script>
-    <script>
-        async function startAnimation() {
-            const output = document.getElementById('output');
-            const height = parseInt(document.getElementById('height').value);
-            output.innerHTML = ""; // Clear previous output
-
-            // Clear code highlights
-            function clearHighlights() {
-                document.querySelectorAll('.highlight').forEach(el => el.classList.remove('highlight'));
-            }
-
-            // Loop to simulate the triangle pattern
-            for (let i = 1; i <= height; i++) {
-                clearHighlights();
-                document.getElementById("line8").classList.add("highlight"); // Highlight outer loop line
-                await new Promise(resolve => setTimeout(resolve, 500)); // Delay for outer loop
-
-                let line = '';
-                
-                for (let j = 1; j <= i; j++) {
-                    clearHighlights();
-                    document.getElementById("line9").classList.add("highlight"); // Highlight inner loop line
-                    await new Promise(resolve => setTimeout(resolve, 300)); // Delay for inner loop
-
-                    line += '*';
-                    output.innerHTML = output.innerHTML + '*'; // Display each star
-                    document.getElementById("line10").classList.add("highlight"); // Highlight printing line
-                    await new Promise(resolve => setTimeout(resolve, 200)); // Delay for printing each star
-                }
-
-                output.innerHTML += '\n'; // New line after each row
-                clearHighlights();
-                document.getElementById("line12").classList.add("highlight"); // Highlight new line command
-                await new Promise(resolve => setTimeout(resolve, 500)); // Delay for line break
-            }
-            clearHighlights(); // Clear highlights after completion
-        }
     </script>
 </body>
 </html>
