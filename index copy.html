@@ -6,102 +6,73 @@
     <title>CodeMentorCPP</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        .video-container {
-    position: relative;
-    padding-bottom: 56.25%; /* Rasio 16:9 (lebar 16, tinggi 9) */
-    height: 0;
-    overflow: hidden;
-    max-width: 100%;
-    background: #000;
-}
-
-.video-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-        /* Layout Styling */
-        h2 {
-            font-family: 'Roboto', sans-serif;
-        }
         body {
             padding-top: 56px;
         }
+
         .sidebar {
             position: fixed;
             top: 56px;
             bottom: 0;
             left: 0;
+            width: 250px;
+            background-color: #000;
+            color: white;
+            overflow-y: auto;
+            transition: width 0.3s ease;
             z-index: 1000;
-            padding: 48px 0 0;
-            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
-            background-color: #000000; /* Background color for the sidebar */
-            color: white; /* Text color */
-            overflow-y: auto; /* Enable scrolling */
         }
-        .main-content {
-            padding: 25px;
-            overflow-x: hidden;
+
+        .sidebar.collapsed {
+            width: 60px;
         }
-        @media (min-width: 800px) {
-            .main-content {
-                margin-left: 250px;
-            }
+
+        .sidebar .nav-item {
+            padding: 10px 15px;
         }
-        .sidebar-nav {
-            padding-left: 0;
+
+        .sidebar.collapsed .nav-item {
+            text-align: center;
+            padding: 8px 0;
         }
-        .sidebar-nav li {
-            padding: 10px 15px; /* Padding for items */
-        }
-        .sidebar-nav li a {
+
+        .sidebar .nav-link {
+            color: white;
             text-decoration: none;
-            color: white; /* Color for links */
         }
-        .sidebar-nav li a:hover {
-            background-color: #b1d2f0; /* Hover effect */
-            border-radius: 5px; /* Rounded corners on hover */
+
+        .sidebar .nav-link:hover {
+            background-color: #b1d2f0;
+            border-radius: 5px;
         }
-        .active {
+
+        .sidebar .nav-link.active {
+            background-color: #0872eb;
+            border-radius: 5px;
             font-weight: bold;
-            background-color: #0872eb; /* Active link background */
-            border-radius: 5px; /* Rounded corners */
         }
-        /* Mobile view sidebar */
-        @media (max-width: 991px) {
-            .sidebar {
-                display: none;
-            }
-            .sidebar.show {
-                display: block;
-                position: fixed;
-                width: 60%;
-                max-width: 250px;
-                z-index: 9999;
-                top: 56px;
-                background-color: #1d1f21; /* Background color for mobile */
-            }
-            .overlay {
-                display: none;
-            }
-            .overlay.show {
-                display: block;
-                position: fixed;
-                top: 56px;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.5);
-                z-index: 9998;
-            }
-            .main-content {
-                margin-left: 0;
-            }
+
+        .sidebar.collapsed .nav-link {
+            font-size: 0; /* Hide text */
+            line-height: 0;
+        }
+
+        .sidebar.collapsed .nav-link::before {
+            content: attr(title); /* Use title attribute */
+            font-size: 16px;
+            line-height: normal;
+            display: inline-block;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+            transition: margin-left 0.3s ease;
+        }
+
+        .sidebar.collapsed ~ .main-content {
+            margin-left: 60px;
         }
     </style>
 </head>
@@ -109,79 +80,49 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-primary-subtle fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="logo.png" alt="Logo" style="height: 50px;">
-                <b><span class="bg-primary text-white h2">CodeMentorCPP</span>
-                    <img src="logo.png" alt="Logo" style="height: 50px;">
-                </b>
-            </a>
-            
-            <button id="toggleSidebar" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav"></div>
+            <a class="navbar-brand text-white" href="#">CodeMentorCPP</a>
+            <button id="collapseSidebarBtn" class="btn btn-outline-light ms-2">☰</button>
         </div>
     </nav>
 
     <!-- Sidebar -->
-    <div class="sidebar col-md-3 col-lg-2" id="sidebar">
-        <ul class="nav flex-column sidebar-nav">
+    <div class="sidebar" id="sidebar">
+        <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link active" href="#" onclick="loadPage('percabangan.html')">Percabangan</a>
+                <a class="nav-link active" href="#" title="Percabangan" onclick="loadPage('percabangan.html')">Percabangan</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" onclick="loadPage('if.html')">If</a>
+                <a class="nav-link" href="#" title="If" onclick="loadPage('if.html')">If</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" onclick="loadPage('if-else.html')">if else</a>
+                <a class="nav-link" href="#" title="If Else" onclick="loadPage('if-else.html')">If Else</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" onclick="loadPage('if-majemuk.html')">Nested If</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#" onclick="loadPage('switch.html')">Switch case</a>
-            </li>
-        </ul>
-        <ul class="nav flex-column sidebar-nav">
-            <li class="nav-item">
-                <a class="nav-link active" href="#" onclick="loadPage('perulangan.html')">Perulangan</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#" onclick="loadPage('while.html')">While</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#" onclick="loadPage('dowhile.html')">Do While</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#" onclick="loadPage('for.html')">For</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#" onclick="loadPage('nestedloop.html')">Nested Loop</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#" onclick="loadPage('prak5.html')">Praktikum</a>
+                <a class="nav-link" href="#" title="Switch Case" onclick="loadPage('switch.html')">Switch Case</a>
             </li>
         </ul>
     </div>
-    <!-- Overlay -->
-    <div class="overlay" id="overlay"></div>
 
     <!-- Main Content -->
-    <div class="main-content">
-        <div id="main-content" class="col-lg-10 col-md-9">
-            <h1>Selamat Belajar</h1>
-            <p>Website ini bertujuan sebagai salah referensi untuk belajar Algoritma dan Pemrograman untuk mahasiswa JTIK UNM.  </p>
-            <p>Silahkan membaca dan menonton materi yang telah disiapkan. Kemudian kerjakan latihan atau praktikum!!!  </p>
-        </div>
+    <div class="main-content" id="main-content">
+        <h1>Selamat Belajar</h1>
+        <p>Website ini bertujuan sebagai salah satu referensi untuk belajar Algoritma dan Pemrograman.</p>
     </div>
 
-    <!-- Bootstrap JS (required for interactive components) -->
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- AJAX Load Content Script -->
+    <!-- JavaScript -->
     <script>
+        // Collapse/Expand Sidebar
+        document.getElementById("collapseSidebarBtn").addEventListener("click", function () {
+            const sidebar = document.getElementById("sidebar");
+            sidebar.classList.toggle("collapsed");
+        });
+
+        // AJAX Load Content Script
         function loadPage(url) {
-            var xhr = new XMLHttpRequest();
+            const xhr = new XMLHttpRequest();
             xhr.open('GET', url, true);
             xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4 && xhr.status == 200) {
@@ -190,40 +131,6 @@
             };
             xhr.send();
         }
-
-        // Toggle Sidebar for Mobile
-        document.getElementById("toggleSidebar").addEventListener("click", function () {
-            var sidebar = document.getElementById("sidebar");
-            var overlay = document.getElementById("overlay");
-            sidebar.classList.toggle("show");
-            overlay.classList.toggle("show");
-        });
-
-        // Close sidebar if overlay is clicked
-        document.getElementById("overlay").addEventListener("click", function () {
-            var sidebar = document.getElementById("sidebar");
-            var overlay = document.getElementById("overlay");
-            sidebar.classList.remove("show");
-            overlay.classList.remove("show");
-        });
-
-        // Automatically close sidebar and navbar when a menu item is clicked
-        var menuLinks = document.querySelectorAll('.sidebar-nav a');
-        menuLinks.forEach(function(link) {
-            link.addEventListener('click', function () {
-                var sidebar = document.getElementById("sidebar");
-                var overlay = document.getElementById("overlay");
-                sidebar.classList.remove("show");
-                overlay.classList.remove("show");
-
-                // Collapse the navbar if it's expanded
-                var navbarCollapse = document.getElementById("navbarNav");
-                if (navbarCollapse.classList.contains("show")) {
-                    var bsCollapse = new bootstrap.Collapse(navbarCollapse);
-                    bsCollapse.hide();
-                }
-            });
-        });
     </script>
 </body>
 </html>
